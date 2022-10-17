@@ -1,0 +1,46 @@
+<% if current_user.appointments.upcoming.present? %>
+  <h3>Your upcoming appointments:</h3>
+  <ul>
+    <% current_user.appointments.upcoming.each do |appointment| %>
+      <li><%= appointment.doctor.name %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <h3>You don't have any upcoming appointments.</h3>
+<% end %>
+
+<% if current_user.appointments.past.present? %>
+  <h3>Your past appointments:</h3>
+  <table>
+    <% current_user.appointments.past.each do |appointment| %>
+      <tr>
+        <td><%= appointment.doctor.name %></td>
+        <td><%= appointment.recommendation %></td>
+      </tr>
+    <% end %>
+  </table>
+<% else %>
+  <h3>You don't have any past appointments.</h3>
+<% end %>
+
+<h2>Doctors:</h2>
+<% Category.all.each do |category| %>
+  <h3><%= category.name %></h3>
+  <% if category.doctors.present? %>
+    <table>
+      <% category.doctors.each do |doctor| %>
+        <tr>
+          <td><h4><%= doctor.name %></h4></td>
+          <td class="button-cell">
+            <%= button_to 'Create Appointment',
+                          doctor_appointments_path(doctor),
+                          method: :post,
+                          disabled: !doctor.available? %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  <% else %>
+    There are no doctors in the category yet.
+  <% end %>
+<% end %>

@@ -1,0 +1,29 @@
+<h2>Upcoming appointments:</h2>
+  <% if current_user.appointments.upcoming.present? %>
+    <table>
+      <% current_user.appointments.upcoming.each do |appointment| %>
+        <tr>
+          <td><h4><%= appointment.patient.name %></h4></td>
+          <td class="button-cell">
+            <%= link_to 'Make Appointment', edit_appointment_path(appointment) %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  <% else %>
+    There are no upcoming appointments yet.
+  <% end %>
+
+<h2>Past appointments:</h2>
+<% if current_user.appointments.past.present? %>
+  <table>
+    <% current_user.appointments.past.each do |appointment| %>
+      <tr>
+        <td><h4><%= appointment.patient.name %></h4></td>
+        <td><%= appointment.recommendation %></td>
+      </tr>
+    <% end %>
+  </table>
+<% else %>
+  There are no past appointments yet.
+<% end %>
