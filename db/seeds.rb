@@ -36,5 +36,4 @@ end
                              name: Faker::Name.name)
 end
 
-30.times { Appointment.create!(doctor: Doctor.all.sample, patient: Patient.all.sample, recomendation: Faker::Lorem.words)}
-User.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
+30.times { Appointment.create!(doctor: Doctor.all.sample, patient: Patient.all.sample, recommendation: Faker::Lorem.words)}
